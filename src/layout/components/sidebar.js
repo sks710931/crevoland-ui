@@ -1,19 +1,20 @@
 import React from "react";
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
 import MuiDrawer from "@mui/material/Drawer";
 import { styled, useTheme } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { setSidebarOpen } from "../../app/app-slice";
+import { Logout } from "@mui/icons-material";
 const drawerWidth = 240;
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -62,11 +63,11 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 const SideBar = () => {
   const isSidebarOpen = useSelector((state) => state.app.sidebarOpen);
   const dispatch = useDispatch();
-const theme = useTheme();
+  const theme = useTheme();
   return (
     <Drawer variant="permanent" open={isSidebarOpen}>
       <DrawerHeader>
-        <IconButton onClick={() =>dispatch(setSidebarOpen(false))}>
+        <IconButton onClick={() => dispatch(setSidebarOpen(false))}>
           {theme.direction === "rtl" ? (
             <ChevronRightIcon />
           ) : (
@@ -76,53 +77,78 @@ const theme = useTheme();
       </DrawerHeader>
       <Divider />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding sx={{ display: "block" }}>
-            <ListItemButton
+        <ListItem disablePadding sx={{ display: "block" }}>
+          <ListItemButton
+            sx={{
+              minHeight: 48,
+              justifyContent: isSidebarOpen ? "initial" : "center",
+              px: 2.5,
+            }}
+          >
+            <ListItemIcon
               sx={{
-                minHeight: 48,
-                justifyContent: isSidebarOpen ? "initial" : "center",
-                px: 2.5,
+                minWidth: 0,
+                mr: isSidebarOpen ? 3 : "auto",
+                justifyContent: "center",
               }}
             >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: isSidebarOpen ? 3 : "auto",
-                  justifyContent: "center",
-                }}
-              >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} sx={{ opacity: isSidebarOpen ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={"Mint NFT"}
+              sx={{ opacity: isSidebarOpen ? 1 : 0 }}
+            />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding sx={{ display: "block" }}>
+          <ListItemButton
+            sx={{
+              minHeight: 48,
+              justifyContent: isSidebarOpen ? "initial" : "center",
+              px: 2.5,
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                minWidth: 0,
+                mr: isSidebarOpen ? 3 : "auto",
+                justifyContent: "center",
+              }}
+            >
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={"CRVL Staking"}
+              sx={{ opacity: isSidebarOpen ? 1 : 0 }}
+            />
+          </ListItemButton>
+        </ListItem>
       </List>
       <Divider />
       <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem key={text} disablePadding sx={{ display: "block" }}>
-            <ListItemButton
+        <ListItem disablePadding sx={{ display: "block" }}>
+          <ListItemButton
+            sx={{
+              minHeight: 48,
+              justifyContent: isSidebarOpen ? "initial" : "center",
+              px: 2.5,
+            }}
+          >
+            <ListItemIcon
               sx={{
-                minHeight: 48,
-                justifyContent: isSidebarOpen ? "initial" : "center",
-                px: 2.5,
+                minWidth: 0,
+                mr: isSidebarOpen ? 3 : "auto",
+                justifyContent: "center",
               }}
             >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: isSidebarOpen ? 3 : "auto",
-                  justifyContent: "center",
-                }}
-              >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} sx={{ opacity: isSidebarOpen ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+              <Logout />
+            </ListItemIcon>
+            <ListItemText
+              primary={"Logout"}
+              sx={{ opacity: isSidebarOpen ? 1 : 0 }}
+            />
+          </ListItemButton>
+        </ListItem>
       </List>
     </Drawer>
   );
